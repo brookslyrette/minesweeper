@@ -116,3 +116,11 @@
   font-size: 22px !important;
   background-color: #A7A7A7;
 }
+
+.icon {
+  display: block;
+  height: 55px;
+  width: 55px;
+  font-size: 18px;
+  line-height: 35px;
+}

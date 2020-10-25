@@ -11,6 +11,8 @@ function App() {
     boardSize: DEFAULT_BOARD_SIZE,
     mineCount: DEFAULT_MINE_COUNT
   })
+  const itemsFlagged = game.board.filter(t => t.isFlagged)
+  const itemsPressed = game.board.filter(t => t.isPressed)
 
   const handleDifficultyChange = (event) => {
     let mineCount = DEFAULT_MINE_COUNT
@@ -28,12 +30,21 @@ function App() {
     setDifficulty({ boardSize, mineCount });
   }
 
-  const itemsFlagged = game.board.filter(t => t.isFlagged)
+  const getGameStateIcon = (gameState) => {
+    if (gameState === 'lost') {
+      return '💀'
+    } else if (gameState === 'won') {
+      return '🎉'
+    } else if (itemsPressed.length > 0) {
+      return '😯'
+    }
+    return '🙂'
+  }
 
   return (
     <div className="minesweeper">
       <div className="gameState">
-        State: {game.gameState}
+        <button className="icon" onClick={() => { dispatch({ type: 'reset', config: difficulty }) }}>{getGameStateIcon(game.gameState)}</button>
         <div>
           <span>Difficulty</span>
           <select onChange={handleDifficultyChange} disabled={game.gameState === 'in-progress'}>
@@ -41,7 +52,6 @@ function App() {
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
           </select>
-          <button onClick={() => { dispatch({ type: 'reset', config: difficulty }) }}>Reset</button>
         </div>
         <span>Bombs left: {game.mineCount - itemsFlagged.length}</span>
       </div>
