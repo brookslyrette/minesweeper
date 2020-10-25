@@ -6,14 +6,13 @@ export const FLAG_TITLE = 'flag-tile'
 export const UNFLAG_TILE = 'unflag-tile'
 
 export const tileGroupClicked = (clickedX, clickedY, state) => {
-  if (state.gameState === 'initial') {
-    return state
-  }
-  const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
-  const neighbours = state.board.filter(t => isNeighbour(t, clicked) && !t.isOpen && !t.isFlagged)
+  if (state.gameState === 'in-progress') {
+    const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
+    const neighbours = state.board.filter(t => isNeighbour(t, clicked) && !t.isOpen && !t.isFlagged)
 
-  openTile(clicked, state)
-  neighbours.forEach(n => openTile(n, state));
+    openTile(clicked, state)
+    neighbours.forEach(n => openTile(n, state));
+  }
   return {
     ...state
   }
@@ -33,8 +32,10 @@ export const tileClicked = (clickedX, clickedY, state) => {
 }
 
 export const mineFlagged = (clickedX, clickedY, state) => {
-  const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
-  clicked.isFlagged = true
+  if (state.gameState === 'in-progress') {
+    const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
+    clicked.isFlagged = true
+  }
 
   return {
     ...state
@@ -42,8 +43,10 @@ export const mineFlagged = (clickedX, clickedY, state) => {
 }
 
 export const mineUnflagged = (clickedX, clickedY, state) => {
-  const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
-  clicked.isFlagged = false
+  if (state.gameState === 'in-progress') {
+    const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
+    clicked.isFlagged = false
+  }
 
   return {
     ...state

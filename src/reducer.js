@@ -12,10 +12,6 @@ export const initialState = {
 }
 
 const reducer = (state, action) => {
-  if ((state.gameState === 'lost' || state.gameState === 'won') && action.type !== 'reset') {
-    return state
-  }
-
   switch (action.type) {
     case 'reset':
       return {
