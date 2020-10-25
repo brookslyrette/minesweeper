@@ -26,6 +26,8 @@ function App() {
     }
   }
 
+  const itemsFlagged = game.board.filter(t => t.isFlagged)
+
   return (
     <div className="minesweeper">
       <div className="gameState">
@@ -37,8 +39,9 @@ function App() {
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
           </select>
-          <button onClick={() => { dispatch({ type: 'reset', config: difficulty })}}>Reset</button>
+          <button onClick={() => { dispatch({ type: 'reset', config: difficulty }) }}>Reset</button>
         </div>
+        <span>Bombs left: {game.mineCount - itemsFlagged.length}</span>
       </div>
       <Board game={game} dispatch={dispatch} />
       <div className="controls">
