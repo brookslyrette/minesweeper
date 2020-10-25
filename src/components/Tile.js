@@ -23,12 +23,11 @@ const Tile = ({ item, dispatch }) => {
       }
       dispatch({ type: 'tile-click', x: item.x, y: item.y })
     }
-
   }
 
   return (
     <div
-      className={`tile mine-count${item.adjacentBombCount} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
+      className={`tile mine-count${ item.isBomb ? '' : item.adjacentBombCount} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >

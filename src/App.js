@@ -12,6 +12,12 @@ function App() {
     <div className="minesweeper">
       {game.gameState} <button onClick={() => { dispatch({ type: 'reset' })}}>Reset</button>
       <Board game={game} dispatch={dispatch} />
+      <div className="controls">
+        <b>Controls</b> <br/>
+        Click: Open tile <br/>
+        Shift + click: Open tile group <br/>
+        Right click: Flag/Unflag tile
+      </div>
     </div>
   );
 }
