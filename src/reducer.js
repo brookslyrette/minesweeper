@@ -1,8 +1,8 @@
 import { generateEmptyBoard, checkGameStatus } from './minesweeper'
 import { tileClicked, tileGroupClicked, mineFlagged, mineUnflagged } from './actions'
 
-const DEFAULT_BOARD_SIZE = 10
-const DEFAULT_MINE_COUNT = 9
+export const DEFAULT_BOARD_SIZE = 10
+export const DEFAULT_MINE_COUNT = 9
 
 export const initialState = {
   gameState: 'initial',
@@ -17,7 +17,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         gameState: 'initial',
-        board: generateEmptyBoard(DEFAULT_BOARD_SIZE)
+        boardSize: action.config.boardSize,
+        mineCount: action.config.mineCount,
+        board: generateEmptyBoard(action.config.boardSize)
       }
     case 'tile-click':
       const postClickState = tileClicked(action.x, action.y, state)
