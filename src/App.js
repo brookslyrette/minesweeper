@@ -13,17 +13,19 @@ function App() {
   })
 
   const handleDifficultyChange = (event) => {
-    switch (event.target.value) {
-      case 'expert':
-        setDifficulty({ boardSize: 25, mineCount: 99 });
-        break;
-      case 'intermediate':
-        setDifficulty({ boardSize: 16, mineCount: 40 });
-        break;
-      default:
-        setDifficulty({ boardSize: DEFAULT_BOARD_SIZE, mineCount: DEFAULT_MINE_COUNT });
-        break;
+    let mineCount = DEFAULT_MINE_COUNT
+    let boardSize = DEFAULT_BOARD_SIZE
+    if (event.target.value === 'expert') {
+      mineCount = 99
+      boardSize = 25
+    } else if (event.target.value === 'intermediate') {
+      mineCount = 40
+      boardSize = 16
     }
+    if (game.gameState === 'initial') {
+      dispatch({ type: 'reset', config: { boardSize, mineCount } })
+    }
+    setDifficulty({ boardSize, mineCount });
   }
 
   const itemsFlagged = game.board.filter(t => t.isFlagged)
@@ -34,7 +36,7 @@ function App() {
         State: {game.gameState}
         <div>
           <span>Difficulty</span>
-          <select onChange={handleDifficultyChange}>
+          <select onChange={handleDifficultyChange} disabled={game.gameState === 'in-progress'}>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
