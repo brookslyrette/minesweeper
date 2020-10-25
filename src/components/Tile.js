@@ -28,6 +28,10 @@ const Tile = ({ item, dispatch, isGameOver }) => {
   }
 
   const handleMouseDown = (event) => {
+    // ignore anything that's not a left click
+    if (event.button !== 0) {
+      return
+    }
     // if you shift click we click a group of tiles.
     if (event.shiftKey) {
       dispatch({ type: TILE_GROUP_PRESSED, x: item.x, y: item.y })
