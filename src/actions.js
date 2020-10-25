@@ -4,6 +4,7 @@ export const TILE_CLICKED = 'tile-click'
 export const TILE_GROUP_CLICKED = 'tile-group-click'
 export const FLAG_TITLE = 'flag-tile'
 export const UNFLAG_TILE = 'unflag-tile'
+export const RESET = 'reset'
 
 export const tileGroupClicked = (clickedX, clickedY, state) => {
   if (state.gameState === 'in-progress') {

@@ -1,5 +1,5 @@
 import { generateEmptyBoard, checkGameStatus } from './minesweeper'
-import { tileClicked, tileGroupClicked, mineFlagged, mineUnflagged } from './actions'
+import { tileClicked, tileGroupClicked, mineFlagged, mineUnflagged, TILE_CLICKED, TILE_GROUP_CLICKED, FLAG_TITLE, UNFLAG_TILE, RESET } from './actions'
 
 export const DEFAULT_BOARD_SIZE = 10
 export const DEFAULT_MINE_COUNT = 9
@@ -13,7 +13,7 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'reset':
+    case RESET:
       return {
         ...state,
         gameState: 'initial',
@@ -21,21 +21,21 @@ const reducer = (state, action) => {
         mineCount: action.config.mineCount,
         board: generateEmptyBoard(action.config.boardSize)
       }
-    case 'tile-click':
+    case TILE_CLICKED:
       const postClickState = tileClicked(action.x, action.y, state)
       return {
         ...postClickState,
         gameState: checkGameStatus(postClickState)
       };
-    case 'tile-group-click':
+    case TILE_GROUP_CLICKED:
       const postGroupClickState = tileGroupClicked(action.x, action.y, state);
       return {
         ...postGroupClickState,
         gameState: checkGameStatus(postGroupClickState)
       };
-    case 'flag-tile':
+    case FLAG_TITLE:
       return mineFlagged(action.x, action.y, state);
-    case 'unflag-tile':
+    case UNFLAG_TILE:
       return mineUnflagged(action.x, action.y, state);
     default:
       throw new Error('Unexpected action');
