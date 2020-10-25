@@ -1,5 +1,21 @@
 import { generateEmptyBoard, checkGameStatus } from './minesweeper'
-import { tileClicked, tileGroupClicked, mineFlagged, mineUnflagged, TILE_CLICKED, TILE_GROUP_CLICKED, FLAG_TITLE, UNFLAG_TILE, RESET } from './actions'
+import {
+  tileClicked,
+  tileGroupClicked,
+  mineFlagged,
+  mineUnflagged,
+  tilePressed,
+  tileGroupPressed,
+  releasePressed,
+  TILE_CLICKED,
+  TILE_GROUP_CLICKED,
+  FLAG_TITLE,
+  UNFLAG_TILE,
+  TILE_PRESSED,
+  TILE_GROUP_PRESSED,
+  RELEASE_PRESSED,
+  RESET
+} from './actions'
 
 export const DEFAULT_BOARD_SIZE = 10
 export const DEFAULT_MINE_COUNT = 9
@@ -37,6 +53,12 @@ const reducer = (state, action) => {
       return mineFlagged(action.x, action.y, state);
     case UNFLAG_TILE:
       return mineUnflagged(action.x, action.y, state);
+    case TILE_PRESSED:
+      return tilePressed(action.x, action.y, state);
+    case TILE_GROUP_PRESSED:
+      return tileGroupPressed(action.x, action.y, state);
+    case RELEASE_PRESSED:
+      return releasePressed(state);
     default:
       throw new Error('Unexpected action');
   }

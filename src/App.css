@@ -105,6 +105,13 @@
   border-bottom: 1px solid #686868;
 }
 
+.hiddenTile.pressed {
+  border-left: none;
+  border-top: none;
+  border-right: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+}
+
 .flaggedTile {
   font-size: 22px !important;
   background-color: #A7A7A7;

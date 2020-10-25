@@ -11,6 +11,7 @@ export const generateEmptyBoard = (boardSize) => {
         isOpen: false,
         isBomb: false,
         isFlagged: false,
+        isPressed: false,
         adjacentBombCount: 0
       })
     }

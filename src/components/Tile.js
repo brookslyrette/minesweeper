@@ -1,4 +1,4 @@
-import  { TILE_CLICKED, TILE_GROUP_CLICKED, FLAG_TITLE, UNFLAG_TILE } from '../actions'
+import  { TILE_CLICKED, TILE_GROUP_CLICKED, FLAG_TITLE, UNFLAG_TILE, TILE_PRESSED, TILE_GROUP_PRESSED, RELEASE_PRESSED } from '../actions'
 
 const Tile = ({ item, dispatch, isGameOver }) => {
 
@@ -27,6 +27,22 @@ const Tile = ({ item, dispatch, isGameOver }) => {
     }
   }
 
+  const handleMouseDown = (event) => {
+    // if you shift click we click a group of tiles.
+    if (event.shiftKey) {
+      dispatch({ type: TILE_GROUP_PRESSED, x: item.x, y: item.y })
+    } else {
+      if (item.isOpen || item.isFlagged) {
+        return;
+      }
+      dispatch({ type: TILE_PRESSED, x: item.x, y: item.y })
+    }
+  }
+
+  const handleMouseUp = () => {
+    dispatch({ type: RELEASE_PRESSED })
+  }
+
   const getTileContent = (item) => {
     if (item.isBomb && item.isOpen) {
       return '💥'
@@ -42,9 +58,12 @@ const Tile = ({ item, dispatch, isGameOver }) => {
 
   return (
     <div
-      className={`tile ${isGameOver ? 'gameOver' : ''} mine-count${ item.isBomb ? '' : item.adjacentBombCount} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
+      className={`tile ${isGameOver ? 'gameOver' : ''} mine-count${ item.isBomb ? '' : item.adjacentBombCount} ${item.isPressed ? 'pressed' : ''} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
       onClick={handleClick}
       onContextMenu={handleRightClick}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseOut={handleMouseUp}
     >
       {getTileContent(item)}
     </div>
