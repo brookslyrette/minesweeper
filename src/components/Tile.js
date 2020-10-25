@@ -1,4 +1,4 @@
-const Tile = ({ item, dispatch }) => {
+const Tile = ({ item, dispatch, isGameOver }) => {
 
   const handleRightClick = (event) => {
     event.preventDefault()
@@ -25,13 +25,26 @@ const Tile = ({ item, dispatch }) => {
     }
   }
 
+  const getTileContent = (item) => {
+    if (item.isBomb && item.isOpen) {
+      return '💥'
+    }
+    else if (isGameOver && item.isBomb && !item.isOpen && !item.isFlagged) {
+      return '💣';
+    } else if (item.isFlagged) {
+      return '⛳';
+    } else if (item.isOpen && item.adjacentBombCount > 0) {
+      return item.adjacentBombCount;
+    }
+  }
+
   return (
     <div
-      className={`tile mine-count${ item.isBomb ? '' : item.adjacentBombCount} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
+      className={`tile ${isGameOver ? 'gameOver' : ''} mine-count${ item.isBomb ? '' : item.adjacentBombCount} ${item.isOpen ? '' : 'hiddenTile'} ${item.isFlagged ? 'flaggedTile' : ''}`}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      { item.isFlagged ? '⛳' : item.isBomb ? (item.isOpen ? '💥' : '💣') : item.adjacentBombCount}
+      {getTileContent(item)}
     </div>
   )
 }

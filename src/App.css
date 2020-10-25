@@ -75,6 +75,10 @@
   color: fuchsia;
 }
 
+.gameOver {
+  font-size: 22px !important;
+}
+
 .hiddenTile {
   font-size: 0px;
   background-color: #A7A7A7;
