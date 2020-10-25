@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import { useReducer } from 'react';
+
+import Board from './components/Board'
+import reducer, { initialState } from './reducer'
+
 import './App.css';
 
 function App() {
+  const [ game, dispatch ] = useReducer(reducer, initialState)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="minesweeper">
+      {game.gameState} <button onClick={() => { dispatch({ type: 'reset' })}}>Reset</button>
+      <Board game={game} dispatch={dispatch} />
     </div>
   );
 }
