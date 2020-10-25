@@ -36,7 +36,8 @@ export const tileClicked = (clickedX, clickedY, state) => {
 }
 
 export const mineFlagged = (clickedX, clickedY, state) => {
-  if (state.gameState === 'in-progress') {
+  const itemsFlagged = state.board.filter(t => t.isFlagged)
+  if (state.gameState === 'in-progress' && itemsFlagged.length < state.mineCount) {
     const clicked = state.board.find(t => t.id === `${clickedX}:${clickedY}`)
     clicked.isFlagged = true
   }
