@@ -1,9 +1,9 @@
 
-export const generateEmptyBoard = (boardSize) => {
+export const generateEmptyBoard = (width, height) => {
   const board = [];
   // create a board for the current game size
-  for (let x = 0; x < boardSize; x++) {
-    for (let y = 0; y < boardSize; y++) {
+  for (let x = 0; x < height; x++) {
+    for (let y = 0; y < width; y++) {
       board.push({
         id: `${x}:${y}`,
         x,
@@ -25,8 +25,8 @@ export const generateBoard = (clickedX, clickedY, state) => {
   }
   let minesPlaced = 0;
   while (minesPlaced < state.mineCount) {
-    for (let x = 0; x < state.boardSize; x++) {
-      for (let y = 0; y < state.boardSize; y++) {
+    for (let x = 0; x < state.boardHeight; x++) {
+      for (let y = 0; y < state.boardWidth; y++) {
         // don't place a mine where the user clicked
         if (x === clickedX && y === clickedY) {
           continue;

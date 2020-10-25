@@ -22,9 +22,10 @@ export const DEFAULT_MINE_COUNT = 9
 
 export const initialState = {
   gameState: 'initial',
-  boardSize: DEFAULT_BOARD_SIZE,
+  boardWidth: DEFAULT_BOARD_SIZE,
+  boardHeight: DEFAULT_BOARD_SIZE,
   mineCount: DEFAULT_MINE_COUNT,
-  board: generateEmptyBoard(DEFAULT_BOARD_SIZE)
+  board: generateEmptyBoard(DEFAULT_BOARD_SIZE, DEFAULT_BOARD_SIZE)
 }
 
 const reducer = (state, action) => {
@@ -33,9 +34,10 @@ const reducer = (state, action) => {
       return {
         ...state,
         gameState: 'initial',
-        boardSize: action.config.boardSize,
+        boardWidth: action.config.boardWidth,
+        boardHeight: action.config.boardHeight,
         mineCount: action.config.mineCount,
-        board: generateEmptyBoard(action.config.boardSize)
+        board: generateEmptyBoard(action.config.boardWidth, action.config.boardHeight)
       }
     case TILE_CLICKED:
       const postClickState = tileClicked(action.x, action.y, state)

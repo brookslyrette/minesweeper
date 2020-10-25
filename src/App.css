@@ -25,7 +25,15 @@
 
 .gameState span {
   font-size: 14px;
-  padding-right: 12px;;
+  padding-right: 12px;
+}
+
+.gameState form {
+  padding: 20px;
+}
+
+.gameState label {
+  font-size: 14px;
 }
 
 .controls {

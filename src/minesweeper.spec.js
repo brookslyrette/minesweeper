@@ -1,7 +1,7 @@
 import { generateEmptyBoard, generateBoard, isNeighbour, checkGameStatus } from './minesweeper'
 
 it('generates an empty board', () => {
-  const board = generateEmptyBoard(10);
+  const board = generateEmptyBoard(10, 10);
   expect(board.length).toEqual(100)
   for (let tile of board) {
     expect(tile.isBomb).toEqual(false)
@@ -14,9 +14,10 @@ it('generates an empty board', () => {
 it('plants the correct number of mines', () => {
   const gameState = {
     gameState: 'initial',
-    boardSize: 10,
+    boardHeight: 10,
+    boardWidth: 10,
     mineCount: 7,
-    board: generateEmptyBoard(10)
+    board: generateEmptyBoard(10, 10)
   }
 
   generateBoard(0, 0, gameState);
@@ -33,9 +34,10 @@ it('plants the correct number of mines', () => {
 it('in-progress games are not over written', () => {
   const gameState = {
     gameState: 'in-progress',
-    boardSize: 10,
+    boardHeight: 10,
+    boardWidth: 10,
     mineCount: 7,
-    board: generateEmptyBoard(10)
+    board: generateEmptyBoard(10, 10)
   }
 
   generateBoard(0, 0, gameState);
@@ -62,7 +64,8 @@ it('finds the correct neighbour tiles', () => {
 it('Opening a bomb causes a loss', () => {
   const gameState = {
     gameState: 'in-progress',
-    boardSize: 10,
+    boardHeight: 10,
+    boardWidth: 10,
     mineCount: 7,
     board: [{
       isBomb: true,
@@ -77,7 +80,8 @@ it('Opening a bomb causes a loss', () => {
 it('Opening all non bomb tiles is a win', () => {
   const gameState = {
     gameState: 'in-progress',
-    boardSize: 10,
+    boardHeight: 10,
+    boardWidth: 10,
     mineCount: 1,
     board: [{
       isBomb: true,
